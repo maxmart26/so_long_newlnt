@@ -1,0 +1,339 @@
+probleme de leak :
+---------------------------------------------------------------------------------------
+valgrind ./so_long 
+    1 leak sur l ouverture de la maps
+    Map could not be opened.==551936== 
+==551936== HEAP SUMMARY:
+==551936==     in use at exit: 288 bytes in 1 blocks
+==551936==   total heap usage: 1 allocs, 0 frees, 288 bytes allocated
+==551936== 
+==551936== LEAK SUMMARY:
+==551936==    definitely lost: 0 bytes in 0 blocks
+==551936==    indirectly lost: 0 bytes in 0 blocks
+==551936==      possibly lost: 0 bytes in 0 blocks
+==551936==    still reachable: 288 bytes in 1 blocks
+==551936==         suppressed: 0 bytes in 0 blocks
+==551936== Rerun with --leak-check=full to see details of leaked memory
+-----------------------------------------------------------------------------------------
+leak quand la maps a un souci 
+    Map is not a rectangle !==551983== 
+==551983== HEAP SUMMARY:
+==551983==     in use at exit: 1,097 bytes in 22 blocks
+==551983==   total heap usage: 123 allocs, 101 frees, 13,107 bytes allocated
+==551983== 
+==551983== LEAK SUMMARY:
+==551983==    definitely lost: 0 bytes in 0 blocks
+==551983==    indirectly lost: 0 bytes in 0 blocks
+==551983==      possibly lost: 0 bytes in 0 blocks
+==551983==    still reachable: 1,097 bytes in 22 blocks
+==551983==         suppressed: 0 bytes in 0 blocks
+==551983== Rerun with --leak-check=full to see details of leaked memory
+---------------------------------------------------------------------------------------------
+leak quand il y a un mauvais sprite
+Error. Sprite surrounded by walls.==552319== 
+==552319== HEAP SUMMARY:
+==552319==     in use at exit: 1,096 bytes in 22 blocks
+==552319==   total heap usage: 123 allocs, 101 frees, 13,108 bytes allocated
+==552319== 
+==552319== LEAK SUMMARY:
+==552319==    definitely lost: 0 bytes in 0 blocks
+==552319==    indirectly lost: 0 bytes in 0 blocks
+==552319==      possibly lost: 0 bytes in 0 blocks
+==552319==    still reachable: 1,096 bytes in 22 blocks
+==552319==         suppressed: 0 bytes in 0 blocks
+==552319== Rerun with --leak-check=full to see details of leaked memory
+----------------------------------------------------------------------------------------------
+LEAK quand il y un collectible qui n est pas accesible 
+Error. Sprite surrounded by walls.==552537== 
+==552537== HEAP SUMMARY:
+==552537==     in use at exit: 389 bytes in 5 blocks
+==552537==   total heap usage: 21 allocs, 16 frees, 928 bytes allocated
+==552537== 
+==552537== LEAK SUMMARY:
+==552537==    definitely lost: 0 bytes in 0 blocks
+==552537==    indirectly lost: 0 bytes in 0 blocks
+==552537==      possibly lost: 0 bytes in 0 blocks
+==552537==    still reachable: 389 bytes in 5 blocks
+==552537==         suppressed: 0 bytes in 0 blocks
+==552537== Rerun with --leak-check=full to see details of leaked memory
+-----------------------------------------------------------------------------------------------
+ERREUR quand il n y a pas d ennemi 
+ Conditional jump or move depends on uninitialised value(s)
+==552751==    at 0x4047F4: render_enemy_map (enemy.c:104)
+==552751==    by 0x40634C: mlx_loop (in /home/matorgue/projects/test/so_long)
+==552751==    by 0x4026AF: main (so_long.c:51)
+==552751== 
+==552751== Conditional jump or move depends on uninitialised value(s)
+==552751==    at 0x404802: render_enemy_map (enemy.c:104)
+==552751==    by 0x40634C: mlx_loop (in /home/matorgue/projects/test/so_long)
+==552751==    by 0x4026AF: main (so_long.c:51)
+-----------------------------------------------------------------------------------------------
+LEAK si il y a plus de 1 ennemi sur la carte 
+Invalid map. Only one enemy required !==553271== 
+==553271== HEAP SUMMARY:
+==553271==     in use at exit: 1,096 bytes in 22 blocks
+==553271==   total heap usage: 123 allocs, 101 frees, 13,108 bytes allocated
+==553271== 
+==553271== LEAK SUMMARY:
+==553271==    definitely lost: 0 bytes in 0 blocks
+==553271==    indirectly lost: 0 bytes in 0 blocks
+==553271==      possibly lost: 0 bytes in 0 blocks
+==553271==    still reachable: 1,096 bytes in 22 blocks
+==553271==         suppressed: 0 bytes in 0 blocks
+==553271== Rerun with --leak-check=full to see details of leaked memory
+------------------------------------------------------------------------------------------------
+LEAK quand je met un 0 dans un coin de ta maps
+1111111111111111111111111111110
+1P0000010000001C0000100000000E1
+100000C10000001000001C000000001
+1000111100000011100011110000001
+1000000000000010000010000010001
+1000000000C00010000010000010C01
+1000000000000010000010000011111
+1000000000001110000010000000001
+1111111110001C00000010000000001
+1000001000001110000000000000001
+10C0001000000010001100000010001
+1000001000000010001C00000010001
+1000001000001111111111111110001
+1000000000000000000010C00000001
+1111000000000000000010000000001
+1000000011110W00000010000000001
+1000000010C00000000000011100111
+100C00001000000010C000010000001
+100000001000000010000001C000001
+1111111111111111111111111111111
+Invalid map==553790== 
+==553790== HEAP SUMMARY:
+==553790==     in use at exit: 1,096 bytes in 22 blocks
+==553790==   total heap usage: 123 allocs, 101 frees, 13,108 bytes allocated
+==553790== 
+==553790== LEAK SUMMARY:
+==553790==    definitely lost: 0 bytes in 0 blocks
+==553790==    indirectly lost: 0 bytes in 0 blocks
+==553790==      possibly lost: 0 bytes in 0 blocks
+==553790==    still reachable: 1,096 bytes in 22 blocks
+==553790==         suppressed: 0 bytes in 0 blocks
+==553790== Rerun with --leak-check=full to see details of leaked memory
+---------------------------------------------------------------------------------------------------
+LEAK quand je met un 1 tout seul en bas de ta maps
+en mode 
+1111111111111111111111111111111
+1P0000010000001C0000100000000E1
+100000C10000001000001C000000001
+1000111100000011100011110000001
+1000000000000010000010000010001
+1000000000C00010000010000010C01
+1000000000000010000010000011111
+1000000000001110000010000000001
+1111111110001C00000010000000001
+1000001000001110000000000000001
+10C0001000000010001100000010001
+1000001000000010001C00000010001
+1000001000001111111111111110001
+1000000000000000000010C00000001
+1111000000000000000010000000001
+1000000011110W00000010000000001
+1000000010C00000000000011100111
+100C00001000000010C000010000001
+100000001000000010000001C000001
+1111111111111111111111111111111
+1
+Invalid map==553957== 
+==553957== HEAP SUMMARY:
+==553957==     in use at exit: 1,106 bytes in 23 blocks
+==553957==   total heap usage: 129 allocs, 106 frees, 13,829 bytes allocated
+==553957== 
+==553957== LEAK SUMMARY:
+==553957==    definitely lost: 0 bytes in 0 blocks
+==553957==    indirectly lost: 0 bytes in 0 blocks
+==553957==      possibly lost: 0 bytes in 0 blocks
+==553957==    still reachable: 1,106 bytes in 23 blocks
+==553957==         suppressed: 0 bytes in 0 blocks
+==553957== Rerun with --leak-check=full to see details of leaked memory
+----------------------------------------------------------------------------------
+SEGMENTATION FAULT si je fait une maps avec plein de \n a la fin 
+1111111111111111111111111111111
+1P0000010000001C0000100000000E1
+100000C10000001000001C000000001
+1000111100000011100011110000001
+1000000000000010000010000010001
+1000000000C00010000010000010C01
+1000000000000010000010000011111
+1000000000001110000010000000001
+1111111110001C00000010000000001
+1000001000001110000000000000001
+10C0001000000010001100000010001
+1000001000000010001C00000010001
+1000001000001111111111111110001
+1000000000000000000010C00000001
+1111000000000000000010000000001
+1000000011110W00000010000000001
+1000000010C00000000000011100111
+100C00001000000010C000010000001
+100000001000000010000001C000001
+1111111111111111111111111111111
+
+
+
+
+
+
+
+
+
+Empty line at the end of the map !Empty line in the mapEmpty line in the mapEmpty line in the mapEmpty line in the mapEmpty line in the mapEmpty line in the mapEmpty line in the mapEmpty line in the map==554265== Invalid read of size 1
+==554265==    at 0x40258A: is_enemy (so_long.c:26)
+==554265==    by 0x40261B: main (so_long.c:43)
+==554265==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==554265== 
+==554265== 
+==554265== Process terminating with default action of signal 11 (SIGSEGV)
+==554265==  Access not within mapped region at address 0x0
+==554265==    at 0x40258A: is_enemy (so_long.c:26)
+==554265==    by 0x40261B: main (so_long.c:43)
+==554265==  If you believe this happened as a result of a stack
+==554265==  overflow in your program's main thread (unlikely but
+==554265==  possible), you can try to increase the size of the
+==554265==  main thread stack using the --main-stacksize= flag.
+==554265==  The main thread stack size used in this run was 8388608.
+==554265== 
+==554265== HEAP SUMMARY:
+==554265==     in use at exit: 1,096 bytes in 22 blocks
+==554265==   total heap usage: 163 allocs, 141 frees, 18,803 bytes allocated
+==554265== 
+==554265== LEAK SUMMARY:
+==554265==    definitely lost: 0 bytes in 0 blocks
+==554265==    indirectly lost: 0 bytes in 0 blocks
+==554265==      possibly lost: 0 bytes in 0 blocks
+==554265==    still reachable: 1,096 bytes in 22 blocks
+==554265==         suppressed: 0 bytes in 0 blocks
+==554265== Rerun with --leak-check=full to see details of leaked memory
+[1]    554265 segmentation fault (core dumped)  valgrind ./so_long ./assets/maps/map4.ber
+---------------------------------------------------------------------------------------------------------------------
+LEAK si tout les ligne de la maps ne sont pas identique 
+1111111111111111111111111111111
+1P0000010000001C0000100000000E1
+100000C10000001000001C000000001
+1000111100000011100011110000001
+1000000000000010000010000010001
+1000000000C00010000010000010C01
+1000000000000010000010000011111
+1000000000001110000010000000001
+1111111110001C00000010000000001
+1000001000001110000000000000001
+10C0001000000010001100000010001
+1000001000000010001C00000010001
+1000001000001111111111111110001
+1000000000000000000010C00000001
+1111000000000000000010000000001
+1000000011110W00000010000000001
+1000000010C00000000000011100111
+100C00001000000010C000010000001
+100000001000000010000001C000001
+111111111111111111111111111111
+Invalid map==554595== 
+==554595== HEAP SUMMARY:
+==554595==     in use at exit: 1,095 bytes in 22 blocks
+==554595==   total heap usage: 123 allocs, 101 frees, 13,096 bytes allocated
+==554595== 
+==554595== LEAK SUMMARY:
+==554595==    definitely lost: 0 bytes in 0 blocks
+==554595==    indirectly lost: 0 bytes in 0 blocks
+==554595==      possibly lost: 0 bytes in 0 blocks
+==554595==    still reachable: 1,095 bytes in 22 blocks
+==554595==         suppressed: 0 bytes in 0 blocks
+==554595== Rerun with --leak-check=full to see details of leaked memory
+----------------------------------------------------------------------------------------------------
+LEAK si jai plusieur sortie pareil si jen est pas
+==555068== HEAP SUMMARY:
+==555068==     in use at exit: 1,096 bytes in 22 blocks
+==555068==   total heap usage: 123 allocs, 101 frees, 13,108 bytes allocated
+==555068== 
+==555068== LEAK SUMMARY:
+==555068==    definitely lost: 0 bytes in 0 blocks
+==555068==    indirectly lost: 0 bytes in 0 blocks
+==555068==      possibly lost: 0 bytes in 0 blocks
+==555068==    still reachable: 1,096 bytes in 22 blocks
+==555068==         suppressed: 0 bytes in 0 blocks
+==555068== Rerun with --leak-check=full to see details of leaked memory
+-------------------------------------------------------------------------------------------------------
+LEAK si jai un espace dans la maps
+1111111111111111111111111111111
+1P0000010000001C0000100000000 1
+100000C10000001000001C000000001
+1000111100000011100011110000001
+1000000000000010000010000010001
+1000000000C00010000010000010C01
+1000000000000010000010000011111
+1000000000001110000010000000001
+1111111110001C00000010000000001
+1000001000001110000000000000001
+10C0001000000010001100000010001
+1000001000000010001C00000010001
+1000001000001111111111111110001
+1000000000000000000010C00000001
+1111000000000000000010000000001
+1000000011110W00000010000000001
+1000000010C00000000000011100111
+100C00001000000010C000010000001
+100000001000000010000001C000011
+1111111111111111111111111111111
+Parameter not expected.==555226== 
+==555226== HEAP SUMMARY:
+==555226==     in use at exit: 1,096 bytes in 22 blocks
+==555226==   total heap usage: 123 allocs, 101 frees, 13,108 bytes allocated
+==555226== 
+==555226== LEAK SUMMARY:
+==555226==    definitely lost: 0 bytes in 0 blocks
+==555226==    indirectly lost: 0 bytes in 0 blocks
+==555226==      possibly lost: 0 bytes in 0 blocks
+==555226==    still reachable: 1,096 bytes in 22 blocks
+==555226==         suppressed: 0 bytes in 0 blocks
+==555226== Rerun with --leak-check=full to see details of leaked memory
+-----------------------------------------------------------------------------------------------------
+PROBLEME d accesible a un collectible derriere la sorie 
+1111111111111111111111111111111
+1P0000010000001C000010000000011
+100000C10000001000001C000000001
+1000111100000011100011110000001
+1000000000000010000010000010001
+1000000000C00010000010000010C01
+1000000000000010000010000011111
+1000000000001110000010000000001
+1111111110001C00000010000000001
+1000001000001110000000000000001
+10C0001000000010001100000010001
+1000001000000010001C00000010001
+1000001000001111111111111110001
+1000000000000000000010C00000001
+1111000000000000000010000000001
+1000000011110W00000010000000001
+1000000010C00000000000011100111
+100C00001000000010C000010000101
+100000001000000010000001C00EC11 <---- ici
+1111111111111111111111111111111
+--------------------------------------------------------------------------------------------------------------
+PROBLEME d accesible a un collectible derriere un ennemi
+1111111111111111111111111111111
+1P0000010000001C000010000000011
+100000C10000001000001C000000001
+1000111100000011100011110000001
+1000000000000010000010000010001
+1000000000C00010000010000010C01
+1000000000000010000010000011111
+1000000000001110000010000000001
+1111111110001C00000010000000001
+1000001000001110000000000000001
+10C0001000000010001100000010001
+1000001000000010001C00000010001
+1000001000001111111111111110001
+1000000000000000000010C00000001
+1111000000000000000010000000001
+1000000011110E00000010000000001
+1000000010C00000000000011100111
+100C00001000000010C000010000101
+100000001000000010000001C01WC11 <---- ici
+1111111111111111111111111111111
+-----------------------------------------------------------------------------------------------------------------
+bon je pense que sa reste deja pas mal ;p
